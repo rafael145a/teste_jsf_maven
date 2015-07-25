@@ -7,10 +7,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
-import org.hibernate.annotations.ForeignKey;
 
 /**
  *
@@ -47,10 +47,19 @@ public class Pessoa implements Serializable {
     private Date dataCadastro;
     
     @ManyToOne(optional=false)
-    @ForeignKey(name="PessoaSexo")
+    @JoinColumn(name="PessoaSexo")
     private Pessoa pessoa;
-    
 
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
+    }
+    
+    
+    
     public Pessoa() {
     }
 

@@ -8,13 +8,21 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import org.hibernate.annotations.ForeignKey;
 
 @Entity
 @Table(name="sexo")
 public class Sexo implements Serializable{
+
+    public String getDescricaoSexo() {
+        return descricaoSexo;
+    }
+
+    public void setDescricaoSexo(String descricaoSexo) {
+        this.descricaoSexo = descricaoSexo;
+    }
     
     private static final long serialVersionUID = 1L;
     
@@ -24,11 +32,11 @@ public class Sexo implements Serializable{
     private Integer idSexo;
     
     @Column(unique=true,nullable=false, length = 9)
-    private String Descricao;
+    private String descricaoSexo;
     
     
     @OneToMany(mappedBy = "sexo", fetch = FetchType.LAZY)
-    @ForeignKey(name = "PessoaSexo")   //fora do padrão JPA????
+    @JoinColumn(name = "PessoaSexo")   //fora do padrão JPA????
     private List<Pessoa> pessoas;
 
     public Sexo() {
@@ -48,14 +56,6 @@ public class Sexo implements Serializable{
 
     public void setIdSexo(Integer idSexo) {
         this.idSexo = idSexo;
-    }
-
-    public String getDescricao() {
-        return Descricao;
-    }
-
-    public void setDescricao(String Descricao) {
-        this.Descricao = Descricao;
     }
 
     @Override
