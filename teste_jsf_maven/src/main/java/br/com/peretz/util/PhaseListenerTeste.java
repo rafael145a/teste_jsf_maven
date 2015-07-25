@@ -22,8 +22,8 @@ public class PhaseListenerTeste implements PhaseListener {
                 
             }catch (Exception e){
                 if(session.getTransaction().isActive()){
-                    
                     session.getTransaction().rollback();
+                } else {
                 }
             } finally{
             
