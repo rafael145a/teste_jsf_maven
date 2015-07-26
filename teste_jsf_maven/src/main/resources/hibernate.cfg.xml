@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC 
+    "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory name = "session">
+        
+        <!-- Configuração de acesso ao BD -->
+        <!-- Define driver do BD -->
+        <property name = "hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        
+        <!-- connection String, cria o banco se não existe -->
+        <property name = "hibernate.connection.url">jdbc:mysql://localhost:3306/teste_jsf_maven_db?createDatabaseIfNotExist=true</property>
+        <property name = "hibernate.connection.username">root</property>
+        <property name = "hibernate.connection.password"></property>
+        <property name = "hibernate.dialect">org.hibernate.MySQL5InnoDBDialect</property>
+        
+        <!-- Habilita show do SQL code em execução -->
+        <property name = "hibernate.show_sql">true</property>                    
+        <property name = "hibernate.format_sql">true</property>        
+        
+        <!-- Habilita criação de estrutura auto pelo hibernate -->
+        <property name = "hibernate.hbm2ddl.auto">update</property>       
+                
+        <!-- Conf de pool de conexões -->
+        <property name = "c3p0.min_size">1</property>
+        <property name = "c3p0.max_size">20</property>
+        <property name = "c3p0.timeout">300</property>
+        <property name = "c3p0.max_statements">80</property>
+        <property name = "c3p0.idle_test_period">300</property>
+        
+        <!--Listar entidades-->
+        <mapping class = "br.com.peretz.entities.Cidade"/>
+        <mapping class = "br.com.peretz.entities.Endereco"/>
+        <mapping class = "br.com.peretz.entities.Estado"/>
+        <mapping class = "br.com.peretz.entities.Pessoa"/>
+        <mapping class = "br.com.peretz.entities.Sexo"/>
+        <mapping class = "br.com.peretz.entities.TipoEndereco"/>
+        <mapping class = "br.com.peretz.entities.TipoLogradouro"/>
+                
+        
+    </session-factory>
+</hibernate-configuration>
