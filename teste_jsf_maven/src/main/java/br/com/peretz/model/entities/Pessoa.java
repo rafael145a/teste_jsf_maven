@@ -5,13 +5,15 @@ import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
-
+import javax.persistence.ForeignKey;
+import javax.persistence.OneToOne;
 /**
  *
  * @author Rafael
@@ -46,23 +48,34 @@ public class Pessoa implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataCadastro;
     
+    @OneToOne(mappedBy = "pessoa", fetch = FetchType.LAZY)
+    @JoinColumn(foreignKey = @ForeignKey(name = "EnderecoPessoa"))
+    private Endereco endereco;    
+    
     @ManyToOne(optional=false)
-    @JoinColumn(name="PessoaSexo")
-    private Pessoa pessoa;
+    @JoinColumn(name="idSexo", referencedColumnName = "idSexo", nullable = false, 
+            foreignKey = @ForeignKey(name = "PessoaSexo"))
+    private Sexo sexo;
 
-    public Pessoa getPessoa() {
-        return pessoa;
-    }
-
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
-    }
-    
-    
-    
     public Pessoa() {
     }
 
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+       
+    public Sexo getSexo() {
+        return sexo;
+    }
+
+    public void setPessoa(Sexo sexo) {
+        this.sexo = sexo;
+    } 
+    
     public Integer getIdPessoa() {
         return idPessoa;
     }
