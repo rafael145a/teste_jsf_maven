@@ -18,15 +18,10 @@
     </session-config>
     
     <!--Tema do primeFaces -->
-    <dependency>
-        <groupId>org.primefaces.themes</groupId>
-        <artifactId>>Glass-X</artifactId>
-        <version>1.0.4</version>        
-    </dependency>
-    
+     
     <context-param>
         <param-name>primefaces.THEME</param-name>
-        <param-value>Glass-X</param-value>
+        <param-value>cupertino</param-value>
     </context-param>
     
     <!-- Configurando o JavaServer Faces (JSF) -->

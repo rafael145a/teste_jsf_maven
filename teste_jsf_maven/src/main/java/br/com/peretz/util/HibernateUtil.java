@@ -17,7 +17,7 @@ public class HibernateUtil {
         try{
             System.out.println("Abrindo session factory");
             Configuration configuration = new Configuration().configure();
-            ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().
+            ServiceRegistry serviceRegistry = new ServiceRegistryBuilder() .
                     applySettings(configuration.getProperties()).buildServiceRegistry();
 
             SESSION_FACTORY = configuration.buildSessionFactory(serviceRegistry);

@@ -12,7 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
-import javax.persistence.ForeignKey;
+import org.hibernate.annotations.ForeignKey;
 import javax.persistence.OneToOne;
 /**
  *
@@ -49,12 +49,12 @@ public class Pessoa implements Serializable {
     private Date dataCadastro;
     
     @OneToOne(mappedBy = "pessoa", fetch = FetchType.LAZY)
-    @JoinColumn(foreignKey = @ForeignKey(name = "EnderecoPessoa"))
+    @ForeignKey(name = "EnderecoPessoa")
     private Endereco endereco;    
     
     @ManyToOne(optional=false)
-    @JoinColumn(name="idSexo", referencedColumnName = "idSexo", nullable = false, 
-            foreignKey = @ForeignKey(name = "PessoaSexo"))
+    @JoinColumn(name="idSexo", referencedColumnName = "idSexo", nullable = false)
+    @ForeignKey(name = "PessoaSexo")
     private Sexo sexo;
 
     public Pessoa() {

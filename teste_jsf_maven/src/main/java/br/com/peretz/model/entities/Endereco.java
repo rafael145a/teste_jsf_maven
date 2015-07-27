@@ -5,13 +5,13 @@ import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import org.hibernate.annotations.ForeignKey;
 
 /**
  *
@@ -45,32 +45,32 @@ public class Endereco implements Serializable{
     
     //FK Endereco x Pessoa
     @OneToOne(optional = true, fetch = FetchType.LAZY)
-    @JoinColumn(name = "idPessoa", referencedColumnName = "idPessoa" ,
-            foreignKey = @ForeignKey(name = "enderecoPessoa"))
+    @ForeignKey(name = "enderecoPessoa")
+    @JoinColumn(name = "idPessoa", referencedColumnName = "idPessoa")
     private Pessoa pessoa;
     
     //FK Endereco x TipoLogradouro
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "idTipoLogradouro", referencedColumnName = "idTipoLogradouro", 
-            foreignKey = @ForeignKey(name = "EnderecoTipoLogradouro"))
+    @ForeignKey(name = "EnderecoTipoLogradouro")
+    @JoinColumn(name = "idTipoLogradouro", referencedColumnName = "idTipoLogradouro") 
     private TipoLogradouro tipoLogradouro; 
     
     //FK Endereco x Cidade
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "idCidade", referencedColumnName = "idCidade",
-            foreignKey = @ForeignKey(name = "EnderecoCidade"))
+    @ForeignKey(name = "EnderecoCidade")
+    @JoinColumn(name = "idCidade", referencedColumnName = "idCidade")
     private Cidade cidade;
     
     //FK Endereco x Estado
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "idEstado", referencedColumnName = "idEstado",
-            foreignKey = @ForeignKey(name = "EnderecoEstado"))
+    @ForeignKey(name = "EnderecoEstado")
+    @JoinColumn(name = "idEstado", referencedColumnName = "idEstado")
     private Estado estado;
     
     //FK Endereco x TipoEndereco
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "idTipoEndereco", referencedColumnName = "idTipoEndereco",
-            foreignKey = @ForeignKey(name = "EnderecoTipoEndereco"))
+    @ForeignKey(name = "EnderecoTipoEndereco")
+    @JoinColumn(name = "idTipoEndereco", referencedColumnName = "idTipoEndereco")
     private TipoEndereco tipoEndereco;
 
     public Endereco() {

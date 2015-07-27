@@ -8,10 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.ForeignKey;
+import org.hibernate.annotations.ForeignKey;
 
 /**
  *
@@ -32,7 +31,7 @@ public class Estado implements Serializable {
     private String nomeEstado;
     
     @OneToMany(mappedBy = "estado", fetch = FetchType.LAZY)
-    @JoinColumn(foreignKey = @ForeignKey(name = "EnderecoEstado"))
+    @ForeignKey(name = "EnderecoEstado")
     private List<Endereco> enderecos;
 
     public Estado() {

@@ -6,7 +6,7 @@ import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.ForeignKey;
+import org.hibernate.annotations.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -37,7 +37,7 @@ public class Sexo implements Serializable{
     
     
     @OneToMany(mappedBy = "sexo", fetch = FetchType.LAZY)
-    @JoinColumn(foreignKey = @ForeignKey(name = "PessoaSexo"))
+    @ForeignKey(name = "PessoaSexo")
     private List<Pessoa> pessoas;
 
     public Sexo() {
