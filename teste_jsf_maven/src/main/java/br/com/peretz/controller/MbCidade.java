@@ -37,13 +37,14 @@ public class MbCidade implements Serializable {
         return "/restrict/cadastrarCidade.faces";
     }
     
-    public void addCidade(){
+    public String addCidade(){
         if (cidade.getIdCidade() == null || cidade.getIdCidade() == 0){
             insertCidade();
         }else{
             updateCidade();
         }
         limpCidade();
+        return null;
     }
 
     public String limpCidade() {
@@ -52,7 +53,7 @@ public class MbCidade implements Serializable {
     }
     
     private void insertCidade() {
-        cidadeDAO().insert(cidade);
+        cidadeDAO().save(cidade);
         FacesContext.getCurrentInstance().addMessage(null, 
                 new FacesMessage("Gravação","Gravação Efetuada!!!"));
     }

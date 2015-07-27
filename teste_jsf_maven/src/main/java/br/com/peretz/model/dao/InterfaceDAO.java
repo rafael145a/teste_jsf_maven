@@ -10,7 +10,7 @@ import org.hibernate.criterion.DetachedCriteria;
  */
 public interface InterfaceDAO<T> {
     
-    void insert(T entity);
+    void save(T entity);
     void update(T entity);
     void delete(T entity);
     void merge(T entity);

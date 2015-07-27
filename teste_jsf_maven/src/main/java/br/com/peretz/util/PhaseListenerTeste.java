@@ -15,16 +15,15 @@ public class PhaseListenerTeste implements PhaseListener {
     public void afterPhase(PhaseEvent event) {
         if(event.getPhaseId().equals(PhaseId.RENDER_RESPONSE)){
             System.out.println("After: " + event.getPhaseId());
-            Session session = HibernateUtil.getSESSION_FACTORY().openSession();
+            Session session = FacesContextUtil.getRequestSession();
             try{
-                
+                //session.flush();
                 session.getTransaction().commit();
                 
             }catch (Exception e){
                 if(session.getTransaction().isActive()){
                     session.getTransaction().rollback();
-                } else {
-                }
+                } 
             } finally{
             
             session.close();

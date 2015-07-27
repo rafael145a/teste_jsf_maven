@@ -9,7 +9,7 @@
       ><!-- xmlns:sec="http://www.springframework.org/security/facelets/tags" -->
 
     <h:head>
-        <title>Semeru - Curso de JSF e Maven</title>
+        <title>Teste de JSF e Maven</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link href="#{facesContext.externalContext.requestContextPath}/resources/restrict/css/teste_jsf_maven.css" rel="stylesheet" type="text/css" />
         <link href="#{facesContext.externalContext.requestContextPath}/resources/restrict/img/favicon.ico" rel="shortcut icon" type="image/x-icon" />    
@@ -37,7 +37,7 @@
             <h:form>    
                 <p:menubar>
                     <p:submenu label="Cadastros" icon="ui-icon-document">  
-                        <p:menuitem value="Cidades" url="/restrict/cadastrarcidade.faces"/>                        
+                        <p:menuitem value="Cidades" url="/restrict/cadastrarCidade.faces"/>                        
                         <p:menuitem value="Pessoas" action="#{mbPessoa.limpPessoa}" ajax="false"/>                        
                     </p:submenu> 
                     <p:submenu label="Consultas">  
@@ -54,7 +54,7 @@
         </div>
 
         <div id="rodape">
-            <a href="http://localhost:8080/teste_jsf_maven"><img src="#{facesContext.externalContext.requestContextPath}/resources/restrict/images/logo_mini.png" /></a>
+            <a href="http://localhost:8080/teste_jsf_maven"><!--img src="#{facesContext.externalContext.requestContextPath}/resources/restrict/img/logo.jpg" /--></a>
 
             <div id="copyright">                  
                 <a href="http://localhost:8080/teste_jsf/maven">C@r@c@tu@s LTDA.</a>

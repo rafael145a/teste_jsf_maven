@@ -23,7 +23,7 @@ public class HibernateDAO<T> implements InterfaceDAO<T>, Serializable{
     
     
     @Override
-    public void insert(T entity) {
+    public void save(T entity) {
         session.save(entity);
     }
 

@@ -16,7 +16,7 @@ body {
    height:130px;
    margin:0;
    padding:0;
-   background-image: url(../img/topo.jpg); 
+   background-image: url(../img/bg-header.jpg); 
    
 }
 
@@ -28,11 +28,13 @@ body {
 }
 
 #logotipo{
-   float:left ;
-   width:270px;
-   height:100px;
+   float:left;
+   position: absolute;
+   width:150px;
+   height:150px;
    margin:10px 0 0 26px;
-   background: url(../img/white_logo.png) no-repeat;
+   background: url(../img/logo.jpg) no-repeat;
+   background-size: 80%;
 
 }
 
