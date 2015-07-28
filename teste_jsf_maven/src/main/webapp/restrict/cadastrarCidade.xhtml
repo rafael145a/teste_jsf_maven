@@ -14,8 +14,8 @@
             <p:tabView dynamic="true" id="tbv1">
                 <p:tab title="Cidade">
                     <h:form prependId="false" id="formCidade">
-                        <p:growl id="msg0" showDetail="true"/>
-                        <h:panelGrid columns="2" cellpadding="10" styleClass="panelGrid" id="grid0">
+                        <p:growl id="msg0" />
+                        <h:panelGrid columns="2" cellpadding="6" styleClass="panelGrid" id="grid0">
                             <h:outputLabel/>
                             
                             <h:inputHidden id="idCidade" value="#{mbCidade.cidade.idCidade}"/>
@@ -38,12 +38,13 @@
             </p:tabView>
                     
                     <h:form id="formtable">
-                        <!--p:growl id="msg1" /-->
-                        <p:dataTable id="idTabela" var="cidade" value="#{mbCidade.cidades}"
+                        <p:growl id="msg1" />
+                        <p:dataTable id="idTabela" reflow="true" var="cidade" value="#{mbCidade.cidades}"
                                      paginator="true" rows="10" emptyMessage="Nenhum registro encontrado"
                                      paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink}
                                      {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
-                                     rowsPerPageTemplate="5,10,15">
+                                     rowsPerPageTemplate="5,10,15" paginatorAlwaysVisible="false"
+                                     >
                         
                             <f:facet name = "header">Lista de Cidades</f:facet>         
                             <p:column>
@@ -52,9 +53,28 @@
                                 </f:facet>
                                 <h:outputText value="#{cidade.nomeCidade}"/>
                             </p:column>
+                            
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Ação"/>
+                                </f:facet>
+                                
+                                
+                                <p:commandButton value="Editar" icon="ui-icon ui-icon-pencil"
+                                    process="@this" update=":tbv1:formCidade">
+                                    <f:setPropertyActionListener target="#{mbCidade.cidade}"
+                                                                 value="#{cidade}"/>
+                                </p:commandButton>
+                                
+                                <p:commandButton value="Remover" icon="ui-icon ui-icon-close"
+                                                 actionListener = "#{mbCidade.deleteCidade}" update="@form :formtable">
+                                     <f:setPropertyActionListener target="#{mbCidade.cidade}"
+                                                                 value="#{cidade}"/>
+                                </p:commandButton>
+                            </p:column>
+                            
                         </p:dataTable>
                     </h:form>
-            <p:schedule id="schedule"></p:schedule>
         </p:fieldset>
     </ui:define>
 

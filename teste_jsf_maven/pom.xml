@@ -12,7 +12,7 @@
 
    <properties>
         <spring.version>3.0.5.RELEASE</spring.version>
-        <themes.version>1.0.8</themes.version>
+        <themes.version>1.0.10</themes.version>
         <jsf.version>2.1.7</jsf.version>
         <jstl.version>1.2</jstl.version>
         <mysql.version>5.1.9</mysql.version>
@@ -190,7 +190,7 @@
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
-            <version>3.4.2</version>
+            <version>5.2</version>
         </dependency>
         
         <!-- ######## TEMAS DO PRIMEFACES ######### -->        
@@ -235,6 +235,9 @@
             <artifactId>south-street</artifactId>  
             <version>${themes.version}</version> 
         </dependency>
+        
+        
+        
 
         <!-- SLF4J -->
         <dependency>

@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
 /**
@@ -16,7 +16,7 @@ import javax.faces.context.FacesContext;
  * @author Rafael
  */
 @ManagedBean(name = "mbCidade")
-@SessionScoped
+@RequestScoped
 public class MbCidade implements Serializable {
     
     private static final long serialVersionUID = 1L;
@@ -37,14 +37,14 @@ public class MbCidade implements Serializable {
         return "/restrict/cadastrarCidade.faces";
     }
     
-    public String addCidade(){
+    public void addCidade(){
         if (cidade.getIdCidade() == null || cidade.getIdCidade() == 0){
             insertCidade();
         }else{
             updateCidade();
         }
         limpCidade();
-        return null;
+        //return null;
     }
 
     public String limpCidade() {
@@ -55,17 +55,19 @@ public class MbCidade implements Serializable {
     private void insertCidade() {
         cidadeDAO().save(cidade);
         FacesContext.getCurrentInstance().addMessage(null, 
-                new FacesMessage("Gravação","Gravação Efetuada!!!"));
+                new FacesMessage("Gravação Efetuada!!!"));
     }
 
     private void updateCidade() {
         cidadeDAO().update(cidade);
         FacesContext.getCurrentInstance().addMessage(null, 
-                new FacesMessage("Atualização","Gravação Efetuada!!!"));
+                new FacesMessage("Atualização Efetuada!!!"));
     }
     
     public void deleteCidade(){
         cidadeDAO().delete(cidade);
+        FacesContext.getCurrentInstance().addMessage(null, 
+                new FacesMessage("Remoção Efetuada!!!"));
     }
 
     public Cidade getCidade() {
