@@ -10,7 +10,8 @@
 
     <ui:define name="tarefas">
         <p:fieldset legend="Cadastrar Pessoas">
-            <h:form>
+            <h:form id="formtable">
+               
                 <p:wizard nextLabel="Prómixo" backLabel="Anterior">
                     <p:tab title="Informações do Cliente" id="tabPessoa">
                         <p:panel header="Informações Básicas de Pessoa">
@@ -26,13 +27,16 @@
                                 
                                 <p:outputLabel for="sexo" value="Sexo:"/>
                                 <p:selectOneMenu id="sexo" value="#{mbPessoa.pessoa.sexo.idSexo}">
-                                    <f:selectItems/>
+                                    <f:selectItems value = "#{bbSexo.sexos}" var="sexo" itemValue="#{sexo.idSexo}"
+                                                   itemLabel="#{sexo.descricaoSexo}"/>
                                 </p:selectOneMenu>
                                 
                                 <p:outputLabel for="telefone" value="Telefone:"/>
-                                <p:inputMask id="telefone" size="40" value="#{mbPessoa.pessoa.telefone}"
+                                <p:inputText id="telefone" size="24" value="#{mbPessoa.pessoa.telefone}"
                                              required="true" requiredMessage="O campo Telefone é obrigatório."
-                                             mask="(99)9999-9999?9" />
+                                             styleClass="phone"/>
+                                
+                               
                                 
                                 <p:outputLabel for="email" value="E-mail:"/>
                                 <p:inputText id="email" size="40" value="#{mbPessoa.pessoa.email}"
@@ -53,7 +57,7 @@
                                              required="true" requiredMessage="O campo data de nascimento é obrigatório."
                                              pattern="dd/MM/yyyy" locale="pt_BR" navigator="true" effect="fade">
                                 </p:calendar>
-                                
+                                                              
                             </p:panelGrid>
                         </p:panel>
                     </p:tab>    
@@ -62,6 +66,63 @@
                         <p:panel header="Informações Básicas de Endereço">
                             <p:growl id="msg1"/>
                             <h:panelGrid columns="2" cellpadding="6" id="gridEndereco">
+                                                                                            
+                                <p:outputLabel for="uf" value="UF:"/>
+                                <p:selectOneMenu id="uf" value="#{mbPessoa.endereco.estado.idEstado}">
+                                    <f:selectItems value = "#{bbEstado.estados}" var ="estado"
+                                                   itemValue="#{estado.idEstado}" itemLabel="#{estado.nomeEstado}"/>
+                                </p:selectOneMenu>
+                                
+                                <p:outputLabel for="cidade" value="Cidade:"/>
+                                <p:selectOneMenu id="cidade" value="#{mbPessoa.endereco.cidade.idCidade}">
+                                    <f:selectItems value = "#{bbCidade.cidades}" var="cidade" itemValue="#{cidade.idCidade}"
+                                                   itemLabel="#{cidade.nomeCidade}"/>
+                                </p:selectOneMenu>
+                                
+                                <p:outputLabel for="bairro" value="Bairro:"/>
+                                <p:inputText id="bairro" size="40" value="#{mbPessoa.endereco.bairro}"
+                                             required="true" requiredMessage="O campo Bairro é obrigatório."
+                                             onkeyup="this.value = this.value.toUpperCase()"/>
+                                
+                                <p:outputLabel for="tipoEndereco" value="Tipo de Endereço:"/>
+                                <p:selectOneMenu id="tipoEndereco" value="#{mbPessoa.endereco.tipoEndereco.idTipoEndereco}">
+                                    <f:selectItems value="#{bbTipoEndereco.tiposEnderecos}" var="tipoEndereco"
+                                                   itemValue="#{tipoEndereco.idTipoEndereco}" itemLabel="#{tipoEndereco.descricaoTipoEndereco}"/>
+                                </p:selectOneMenu>
+                                
+                                <p:outputLabel for="tipoLogradouro" value="Tipo de Logradouro:"/>
+                                <p:selectOneMenu id="tipoLogradouro" value="#{mbPessoa.endereco.tipoLogradouro.idTipoLogradouro}">
+                                    <f:selectItems value="#{bbTipoLogradouro.tipoLogradouros}" var="tipoLogradouro"
+                                                   itemValue="#{tipoLogradouro.idTipoLogradouro}" itemLabel="#{tipoLogradouro.descricaoTipoLogradouro}"/>
+                                </p:selectOneMenu>
+                                
+                                <p:outputLabel for="nomeLogradouro" value="Logradouro:"/>
+                                <p:inputText id="nomeLogradouro" size="40" value="#{mbPessoa.endereco.nomeLogradouro}"
+                                             required="true" requiredMessage="O campo Logradouro é obrigatório."
+                                             onkeyup="this.value = this.value.toUpperCase()"/>
+                                
+                                <p:outputLabel for="numero" value="Número:"/>
+                                <p:inputText id="numero" size="10" value="#{mbPessoa.endereco.numero}"
+                                             required="true" requiredMessage="O campo Número é obrigatório."
+                                             onkeypress="return SomenteNumero(event)"/>
+                                
+                                <p:outputLabel for="complemento" value="Complemento:"/>
+                                <p:inputText id="complemento" size="10" value="#{mbPessoa.endereco.complemento}"
+                                             required="false"/>
+                               
+                                <p:outputLabel for="cep" value="CEP:"/>
+                                <p:inputMask id="cep" size="14" value="#{mbPessoa.endereco.cep}"
+                                             required="true" requiredMessage="O campo CEP é obrigatório."
+                                             mask = "99999-999">
+                                </p:inputMask>
+                                
+                                <p:panel>
+                                    <p:commandButton value = "Salvar" action="#{mbPessoa.addPessoa}"
+                                                     icon = "ui-icon ui-icon-disk" update="@form"/>
+                                    <p:commandButton value="Cancelar" action="#{mbPessoa.limpPessoa}"
+                                                     icon = "ui-icon ui-icon-close" update="@form"/>
+                                </p:panel>   
+                                
 
                             </h:panelGrid>
                         </p:panel>

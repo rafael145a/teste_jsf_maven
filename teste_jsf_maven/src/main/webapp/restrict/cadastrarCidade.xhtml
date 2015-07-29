@@ -67,13 +67,14 @@
                                 </p:commandButton>
                                 
                                 <p:commandButton value="Remover" icon="ui-icon ui-icon-close"
-                                                 actionListener = "#{mbCidade.deleteCidade}" update="@form :formtable">
+                                                 action = "#{mbCidade.deleteCidade}" update="@form :formtable">
                                      <f:setPropertyActionListener target="#{mbCidade.cidade}"
                                                                  value="#{cidade}"/>
                                 </p:commandButton>
                             </p:column>
                             
                         </p:dataTable>
+                        
                     </h:form>
         </p:fieldset>
     </ui:define>

@@ -40,7 +40,7 @@ public class Endereco implements Serializable{
     @Column(nullable = false)
     private int numero;
     
-    @Column(nullable = false, length = 15)
+    @Column(length = 15)
     private String complemento;
     
     //FK Endereco x Pessoa

@@ -6,6 +6,8 @@ import br.com.peretz.model.entities.Endereco;
 import br.com.peretz.model.entities.Pessoa;
 import br.com.peretz.util.FacesContextUtil;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -52,7 +54,9 @@ public class MbPessoa implements Serializable{
     }
     
     public void addPessoa(){
+        Date date = new Date();
         if (pessoa.getIdPessoa() == null || pessoa.getIdPessoa() == 0){
+            pessoa.setDataCadastro(date);
             insertPessoa();
         }else{
             updatePessoa();
@@ -61,18 +65,22 @@ public class MbPessoa implements Serializable{
     
     private void insertPessoa(){
         pessoaDAO().save(pessoa);
+        endereco.setPessoa(pessoa);
+        enderecoDAO().save(endereco);
         FacesContext.getCurrentInstance().addMessage(null, 
                 new FacesMessage("Gravação Efetuada!!!"));
     }
     
     private void updatePessoa(){
         pessoaDAO().update(pessoa);
+        enderecoDAO().update(endereco);
         FacesContext.getCurrentInstance().addMessage(null, 
                 new FacesMessage("Atualização Efetuada!!!"));
     }
             
     public void deletePessoa(){
         pessoaDAO().delete(pessoa);
+        enderecoDAO().delete(endereco);
         FacesContext.getCurrentInstance().addMessage(null, 
                 new FacesMessage("Pessoa deletada!"));
     }
