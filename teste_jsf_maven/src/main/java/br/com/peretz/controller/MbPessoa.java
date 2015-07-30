@@ -2,8 +2,12 @@ package br.com.peretz.controller;
 
 import br.com.peretz.model.dao.HibernateDAO;
 import br.com.peretz.model.dao.InterfaceDAO;
+import br.com.peretz.model.entities.Cidade;
 import br.com.peretz.model.entities.Endereco;
+import br.com.peretz.model.entities.Estado;
 import br.com.peretz.model.entities.Pessoa;
+import br.com.peretz.model.entities.TipoEndereco;
+import br.com.peretz.model.entities.TipoLogradouro;
 import br.com.peretz.util.FacesContextUtil;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -25,10 +29,13 @@ public class MbPessoa implements Serializable{
     
     private static final long serialVersionUID = 1L;
     
+    private String confereSenha;
     private Pessoa pessoa = new Pessoa();
     private Endereco endereco = new Endereco();
+    private Estado estado = new Estado();
     private List<Pessoa> pessoas;
     private List<Endereco> enderecos;
+
 
     public MbPessoa() {
     }
@@ -46,6 +53,7 @@ public class MbPessoa implements Serializable{
     public String limpPessoa(){
         pessoa = new Pessoa();
         endereco = new Endereco();
+        estado = new Estado();
         return editPessoa();
     }
     
@@ -54,9 +62,8 @@ public class MbPessoa implements Serializable{
     }
     
     public void addPessoa(){
-        Date date = new Date();
         if (pessoa.getIdPessoa() == null || pessoa.getIdPessoa() == 0){
-            pessoa.setDataCadastro(date);
+            pessoa.setDataCadastro(new Date());
             insertPessoa();
         }else{
             updatePessoa();
@@ -64,18 +71,44 @@ public class MbPessoa implements Serializable{
     }
     
     private void insertPessoa(){
-        pessoaDAO().save(pessoa);
-        endereco.setPessoa(pessoa);
-        enderecoDAO().save(endereco);
-        FacesContext.getCurrentInstance().addMessage(null, 
-                new FacesMessage("Gravação Efetuada!!!"));
+        if (!(comparaSenha(pessoa.getSenha(),confereSenha))){
+            FacesContext.getCurrentInstance().addMessage(null, 
+                    new FacesMessage(FacesMessage.SEVERITY_FATAL, "Senhas não conferem", ""));
+        }else{
+            pessoaDAO().save(pessoa);
+            endereco.setPessoa(pessoa);
+            enderecoDAO().save(endereco);
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage("Gravação Efetuada!!!"));
+        }
     }
     
     private void updatePessoa(){
-        pessoaDAO().update(pessoa);
+        Estado estado = new Estado();
+        estado.setIdEstado(endereco.getEstado().getIdEstado());
+        endereco.setEstado(estado);
+        
+        Cidade cidade = new Cidade();
+        cidade.setIdCidade(endereco.getCidade().getIdCidade());
+        endereco.setCidade(cidade);
+        
+        TipoEndereco tipoEndereco = new TipoEndereco();
+        tipoEndereco.setIdTipoEndereco(endereco.getTipoEndereco().getIdTipoEndereco());
+        endereco.setTipoEndereco(tipoEndereco);
+        
+        TipoLogradouro tipoLogradouro = new TipoLogradouro();
+        tipoLogradouro.setIdTipoLogradouro(endereco.getTipoLogradouro().getIdTipoLogradouro());
+        endereco.setTipoLogradouro(tipoLogradouro);        
+        
+        pessoaDAO().update(pessoa); 
         enderecoDAO().update(endereco);
         FacesContext.getCurrentInstance().addMessage(null, 
-                new FacesMessage("Atualização Efetuada!!!"));
+                new FacesMessage("Atualização Efetuada!!!"));        
+        
+    }
+    
+    private boolean comparaSenha(String senha, String compara){
+        return senha.equals(compara);
     }
             
     public void deletePessoa(){
@@ -117,7 +150,26 @@ public class MbPessoa implements Serializable{
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
     }
+
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
+    }
+
+    public String getConfereSenha() {
+        return confereSenha;
+    }
+
+    public void setConfereSenha(String confereSenha) {
+        this.confereSenha = confereSenha;
+    }
     
+    
+    
+     
     
     
 }

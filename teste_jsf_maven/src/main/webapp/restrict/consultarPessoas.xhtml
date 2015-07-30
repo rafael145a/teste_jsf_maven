@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui"
+      template="./../resources/main.xhtml">
+
+    <ui:define name="tarefas">
+        <h:form id="consultaPessoas">
+            <p:growl id="msg0"/>
+            <p:dataTable id="idTabela" var="pessoa" value="#{mbPessoa.pessoas}" reflow="true"
+                            paginator="true" rows="10" emptyMessage="Nenhum registro encontrado"
+                            paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink}
+                            {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
+                            rowsPerPageTemplate="5,10,15" paginatorAlwaysVisible="false">
+                
+                <f:facet name="header">Lista de Pessoas</f:facet>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Nome:"/>
+                    </f:facet>
+                    <h:outputText value="#{pessoa.nome}"/>
+                </p:column>
+                
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="E-mail:"/>
+                    </f:facet>
+                    <h:outputText value="#{pessoa.email}"/>
+                </p:column>
+                
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Telefone:"/>
+                    </f:facet>
+                    <h:outputText value="#{pessoa.telefone}"/>
+                </p:column>
+                
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Cidade:"/>
+                    </f:facet>
+                    <h:outputText value="#{pessoa.endereco.cidade.nomeCidade}"/>
+                </p:column>
+                
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Ação"/>
+                    </f:facet>
+
+
+                    <p:commandButton value="Editar" icon="ui-icon ui-icon-pencil"
+                                     update="@form" action="#{mbPessoa.editPessoa}"
+                                     ajax="false">
+                        
+                        <f:setPropertyActionListener target="#{mbPessoa.pessoa}"
+                                                     value="#{pessoa}"/>
+                        
+                        <f:setPropertyActionListener target="#{mbPessoa.pessoa.idPessoa}"
+                                                     value="#{pessoa.idPessoa}"/>
+                        
+                        <f:setPropertyActionListener target="#{mbPessoa.endereco}"
+                                                     value="#{pessoa.endereco}"/>
+                        
+                        <f:setPropertyActionListener target="#{mbPessoa.endereco.estado.idEstado}"
+                                                     value="#{pessoa.endereco.estado.idEstado}"/>
+                        
+                        <f:setPropertyActionListener target="#{mbPessoa.endereco.cidade.idCidade}"
+                                                     value="#{pessoa.endereco.cidade.idCidade}"/>
+                        
+                        <f:setPropertyActionListener target="#{mbPessoa.endereco.tipoEndereco.idTipoEndereco}"
+                                                     value="#{pessoa.endereco.tipoEndereco.idTipoEndereco}"/>
+                        
+                        <f:setPropertyActionListener target="#{mbPessoa.endereco.tipoLogradouro.idTipoLogradouro}"
+                                                     value="#{pessoa.endereco.tipoLogradouro.idTipoLogradouro}"/>
+                        
+                    </p:commandButton>
+
+                    <p:commandButton value="Cancelar" icon="ui-icon ui-icon-close"
+                                     action = "#{mbPessoa.limpPessoa}" update="@form"/>
+                </p:column>
+                
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

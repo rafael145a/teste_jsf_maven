@@ -29,6 +29,8 @@
         <property name = "c3p0.timeout">300</property>
         <property name = "c3p0.max_statements">80</property>
         <property name = "c3p0.idle_test_period">300</property>
+        <property name = "log4j.logger.org.hibernate.type">TRACE</property>
+        <property name = "log4j.logger.org.hibernate.SQL">DEBUG</property>
         
         <!--Listar entidades-->
         <mapping class = "br.com.peretz.model.entities.Cidade"/>

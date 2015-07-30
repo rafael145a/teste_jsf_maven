@@ -62,6 +62,27 @@
                         </p:panel>
                     </p:tab>    
                     
+                    <p:tab title="Informações de acesso" id="tabAcesso">
+                        <p:panel header="Informações para acesso">
+                            <p:growl id="msg2"/>
+                            <h:panelGrid columns="2" cellpadding="6" id="gridAcesso">
+                                <p:outputLabel for="login" value="Login:"/>
+                                <p:inputText id="login" value="#{mbPessoa.pessoa.login}"/>
+                                
+                                <p:outputLabel for="senha" value="Senha:"/>
+                                <p:password id="senha" size="30" maxlength="40" promptLabel="Digite a senha"
+                                            value="#{mbPessoa.confereSenha}"
+                                            weakLabel="Fraca" goodLabel="Boa" strongLabel="Forte" feedback="true"/>
+                                
+                                <p:outputLabel for="senhaConf" value="Confirmar Senha:"/>
+                                <p:password id="senhaConf" size="30" value="#{mbPessoa.pessoa.senha}"
+                                            maxlength="40" promptLabel="Confirme sua senha" validator="passwordValidator"
+                                            weakLabel="Fraca" goodLabel="Boa" strongLabel="Forte" feedback="true"/>
+                                
+                            </h:panelGrid>
+                        </p:panel>
+                    </p:tab>
+                    
                     <p:tab title="Informações do Endereço" id="tabEndereco">                    
                         <p:panel header="Informações Básicas de Endereço">
                             <p:growl id="msg1"/>
