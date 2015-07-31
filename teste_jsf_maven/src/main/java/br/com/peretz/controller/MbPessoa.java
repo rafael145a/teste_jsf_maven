@@ -1,5 +1,6 @@
 package br.com.peretz.controller;
 
+import br.com.peretz.conversores.ConverterSHA1;
 import br.com.peretz.model.dao.HibernateDAO;
 import br.com.peretz.model.dao.InterfaceDAO;
 import br.com.peretz.model.entities.Cidade;
@@ -17,6 +18,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
 
 /**
  *
@@ -62,6 +64,7 @@ public class MbPessoa implements Serializable{
     }
     
     public void addPessoa(){
+        pessoa.setPermissao("ROLE_ADMIN");
         if (pessoa.getIdPessoa() == null || pessoa.getIdPessoa() == 0){
             pessoa.setDataCadastro(new Date());
             insertPessoa();
@@ -71,17 +74,18 @@ public class MbPessoa implements Serializable{
     }
     
     private void insertPessoa(){
-        if (!(comparaSenha(pessoa.getSenha(),confereSenha))){
-            FacesContext.getCurrentInstance().addMessage(null, 
-                    new FacesMessage(FacesMessage.SEVERITY_FATAL, "Senhas não conferem", ""));
-        }else{
+        if (comparaSenha(pessoa.getSenha(), ConverterSHA1.cipher(confereSenha))) {
             pessoaDAO().save(pessoa);
             endereco.setPessoa(pessoa);
             enderecoDAO().save(endereco);
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage("Gravação Efetuada!!!"));
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Senha não confere",null));
         }
     }
+    
     
     private void updatePessoa(){
         Estado estado = new Estado();
@@ -107,8 +111,8 @@ public class MbPessoa implements Serializable{
         
     }
     
-    private boolean comparaSenha(String senha, String compara){
-        return senha.equals(compara);
+    private boolean comparaSenha(String senha, String senhaConf){
+        return senha.equals(senhaConf);
     }
             
     public void deletePessoa(){

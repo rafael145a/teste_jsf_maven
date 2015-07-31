@@ -67,17 +67,21 @@
                             <p:growl id="msg2"/>
                             <h:panelGrid columns="2" cellpadding="6" id="gridAcesso">
                                 <p:outputLabel for="login" value="Login:"/>
-                                <p:inputText id="login" value="#{mbPessoa.pessoa.login}"/>
+                                <p:inputText id="login" value="#{mbPessoa.pessoa.login}" required="true" 
+                                             requiredMessage="Login requerido"/>
                                 
                                 <p:outputLabel for="senha" value="Senha:"/>
                                 <p:password id="senha" size="30" maxlength="40" promptLabel="Digite a senha"
-                                            value="#{mbPessoa.confereSenha}"
-                                            weakLabel="Fraca" goodLabel="Boa" strongLabel="Forte" feedback="true"/>
-                                
+                                            value="#{mbPessoa.pessoa.senha}" 
+                                            weakLabel="Fraca" goodLabel="Boa" strongLabel="Forte" feedback="true"
+                                            required="true" requiredMessage="Por favor, informe a senha"
+                                            converter="converterSHA1"/>
                                 <p:outputLabel for="senhaConf" value="Confirmar Senha:"/>
-                                <p:password id="senhaConf" size="30" value="#{mbPessoa.pessoa.senha}"
-                                            maxlength="40" promptLabel="Confirme sua senha" validator="passwordValidator"
-                                            weakLabel="Fraca" goodLabel="Boa" strongLabel="Forte" feedback="true"/>
+                                <p:password id="senhaConf" size="30" value="#{mbPessoa.confereSenha}"
+                                            maxlength="40" promptLabel="Confirme sua senha"
+                                            validator="passwordValidator"
+                                            weakLabel="Fraca" goodLabel="Boa" strongLabel="Forte" feedback="true"
+                                            />
                                 
                             </h:panelGrid>
                         </p:panel>
